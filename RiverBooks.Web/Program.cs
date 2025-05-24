@@ -1,8 +1,11 @@
+using FastEndpoints;
 using RiverBooks.Books;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenApi();
+builder.Services.AddFastEndpoints();
+
 builder.Services.AddBookServices();
 
 var app = builder.Build();
@@ -14,7 +17,6 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-// Map Module Endpoints
-app.MapBookEndpoints();
+app.UseFastEndpoints();
 
 app.Run();

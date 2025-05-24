@@ -8,7 +8,7 @@ internal class BookService : IBookService
         new BookDto(Guid.NewGuid(), "To Kill a Mockingbird", "Harper Lee"),
         new BookDto(Guid.NewGuid(), "1984", "George Orwell")
     ];
-    public IEnumerable<BookDto> ListBooks()
+    public List<BookDto> ListBooks()
     {
         return _books;
     }
