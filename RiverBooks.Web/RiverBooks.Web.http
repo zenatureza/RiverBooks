@@ -1,4 +1,33 @@
 @RiverBooks.Web_HostAddress = http://localhost:5011
+@BookId=d1fe50d3-a4f7-4976-939a-80c1a714bb61
 
+###
 GET {{RiverBooks.Web_HostAddress}}/books
 Accept: application/json
+
+###
+GET {{RiverBooks.Web_HostAddress}}/books/{{BookId}}
+Accept: application/json
+
+###
+POST {{RiverBooks.Web_HostAddress}}/books
+Content-Type: application/json
+Accept: application/json
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "price": 10.99
+}
+
+###
+DELETE {{RiverBooks.Web_HostAddress}}/books/{{BookId}}
+Accept: application/json
+
+###
+POST {{RiverBooks.Web_HostAddress}}/books/{{BookId}}/pricehistory
+Content-Type: application/json
+Accept: application/json
+{
+  "id": "{{BookId}}",
+  "newPrice": 12.88
+}
