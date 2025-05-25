@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace RiverBooks.Users;
+namespace RiverBooks.Users.Data;
 
 public class UsersDbContext : IdentityDbContext<ApplicationUser>
 {
@@ -16,6 +16,8 @@ public class UsersDbContext : IdentityDbContext<ApplicationUser>
     modelBuilder.HasDefaultSchema("Users");
 
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+    base.OnModelCreating(modelBuilder);
   }
 
   protected override void ConfigureConventions(ModelConfigurationBuilder configurationBuilder)

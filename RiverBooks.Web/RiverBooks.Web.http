@@ -1,4 +1,4 @@
-@RiverBooks.Web_HostAddress = http://localhost:5011
+@RiverBooks.Web_HostAddress = https://localhost:7179
 @BookId=d1fe50d3-a4f7-4976-939a-80c1a714bb61
 
 ###
@@ -31,3 +31,25 @@ Accept: application/json
   "id": "{{BookId}}",
   "newPrice": 12.88
 }
+
+###
+POST {{RiverBooks.Web_HostAddress}}/users
+Content-Type: application/json
+Accept: application/json
+{
+  "email": "test@test.com",
+  "password": "SenhaSegura123_"
+}
+
+###
+POST {{RiverBooks.Web_HostAddress}}/users/login
+Content-Type: application/json
+Accept: application/json
+{
+  "email": "test@test.com",
+  "password": "SenhaSegura123_"
+}
+
+###
+
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNzQ4MjA4ODY0LCJleHAiOjE3NDgyMTI0NjQsIm5iZiI6MTc0ODIwODg2NH0.tP9xiHRryHh8EB3aVUX8HInRw1FUNGR6MdKj7YLuySU
