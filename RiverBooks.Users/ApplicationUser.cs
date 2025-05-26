@@ -17,6 +17,9 @@ public class ApplicationUser : IdentityUser
     if (existingBook != null)
     {
       existingBook.UpdateQuantity(existingBook.Quantity + item.Quantity);
+      existingBook.UpdateDescription(item.Description);
+      existingBook.UpdatePrice(item.UnitPrice);
+
       return;
     }
 
@@ -47,4 +50,10 @@ public class CartItem
 
   internal void UpdateQuantity(int newQuantity) => 
     Quantity = Guard.Against.Negative(newQuantity);
+
+  internal void UpdateDescription(string description) => 
+    Description = Guard.Against.NullOrEmpty(description);
+
+  internal void UpdatePrice(decimal unitPrice) => 
+    UnitPrice = Guard.Against.Negative(unitPrice);
 }
