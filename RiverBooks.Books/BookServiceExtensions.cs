@@ -8,20 +8,23 @@ namespace RiverBooks.Books;
 
 public static class BookServiceExtensions
 {
-    public static IServiceCollection AddBookServices(
-      this IServiceCollection services,
-      ConfigurationManager config,
-      ILogger logger)
-    {
-      string? connectionString = config.GetConnectionString("BooksConnectionString");
-      services.AddDbContext<BookDbContext>(options =>
-        options.UseSqlServer(connectionString));
+  public static IServiceCollection AddBookServices(
+    this IServiceCollection services,
+    IConfiguration config,
+    ILogger logger,
+    List<System.Reflection.Assembly> mediatRAssemblies)
+  {
+    string? connectionString = config.GetConnectionString("BooksConnectionString");
+    services.AddDbContext<BookDbContext>(options =>
+      options.UseSqlServer(connectionString));
 
-      services.AddScoped<IBookRepository, EfBookRepository>();
-      services.AddScoped<IBookService, BookService>();
+    services.AddScoped<IBookRepository, EfBookRepository>();
+    services.AddScoped<IBookService, BookService>();
 
-      logger.Information("{Module} module services registered", "Books");
+    mediatRAssemblies.Add(typeof(BookServiceExtensions).Assembly);
 
-      return services;
-    }
+    logger.Information("{Module} module services registered", "Books");
+
+    return services;
+  }
 }

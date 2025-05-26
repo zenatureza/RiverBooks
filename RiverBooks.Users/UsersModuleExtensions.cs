@@ -11,7 +11,8 @@ public static class UsersModuleExtensions
   public static IServiceCollection AddUsersModuleServices(
     this IServiceCollection services,
     IConfiguration config,
-    ILogger logger)
+    ILogger logger,
+    List<System.Reflection.Assembly> mediatRAssemblies)
   {
     string? connectionString = config.GetConnectionString("UsersConnectionString");
     services.AddDbContext<UsersDbContext>(options =>
@@ -19,6 +20,10 @@ public static class UsersModuleExtensions
 
     services.AddIdentityCore<ApplicationUser>()
       .AddEntityFrameworkStores<UsersDbContext>();
+
+    services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+
+    mediatRAssemblies.Add(typeof(UsersModuleExtensions).Assembly);
 
     logger.Information("{Module} module services registered", "Users");
 
