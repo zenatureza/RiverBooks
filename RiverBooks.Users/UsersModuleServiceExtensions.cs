@@ -6,7 +6,7 @@ using Serilog;
 
 namespace RiverBooks.Users;
 
-public static class UsersModuleExtensions
+public static class UsersModuleServiceExtensions
 {
   public static IServiceCollection AddUsersModuleServices(
     this IServiceCollection services,
@@ -23,7 +23,7 @@ public static class UsersModuleExtensions
 
     services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
 
-    mediatRAssemblies.Add(typeof(UsersModuleExtensions).Assembly);
+    mediatRAssemblies.Add(typeof(UsersModuleServiceExtensions).Assembly);
 
     logger.Information("{Module} module services registered", "Users");
 
