@@ -1,25 +1,46 @@
-﻿using FastEndpoints;
+﻿using System.Security.Claims;
+using Ardalis.Result;
+using FastEndpoints;
+using MediatR;
 
 namespace RiverBooks.OrderProcessing.Endpoints;
 
-internal class ListOrdersForUser : EndpointWithoutRequest<ListOrdersForUserResponse>
+internal class ListOrdersForUser(IMediator mediator) : EndpointWithoutRequest<ListOrdersForUserResponse>
 {
+  private readonly IMediator _mediator = mediator;
+
   public override void Configure()
   {
     Get("/orders");
     Claims("EmailAddress");
   }
-}
 
-internal class ListOrdersForUserResponse
-{
-  public List<OrderSummary> Orders { get; set; } = [];
-}
+  public override async Task HandleAsync(CancellationToken ct)
+  {
+    var emailAddress = User.FindFirstValue("EmailAddress");
 
-public class OrderSummary
-{
-  public Guid UserId { get; set; }
-  public DateTimeOffset DateCreated { get; set; }
-  public DateTimeOffset? DateShipped { get; set; }
-  public decimal Total { get; set; }
+    var query = new ListOrdersForUserQuery(emailAddress!);
+
+    var result = await _mediator.Send(query, ct);
+
+    if (result.Status == ResultStatus.Unauthorized)
+    {
+      await SendUnauthorizedAsync(ct);
+    }
+    else
+    {
+      var response = new ListOrdersForUserResponse
+      {
+        Orders = [.. result.Value.Select(x => new OrderSummary
+        {
+          DateCreated = x.DateCreated,
+          DateShipped = x.DateShipped,
+          OrderId = x.OrderId,
+          Total = x.Total,
+          UserId = x.UserId,
+        })]
+      };
+      await SendAsync(response, cancellation: ct);
+    }
+  }
 }

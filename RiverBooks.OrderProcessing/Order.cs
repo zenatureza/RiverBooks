@@ -12,4 +12,26 @@ internal class Order
   public DateTimeOffset DateCreated { get; private set; } = DateTimeOffset.UtcNow;
 
   private void AddOrderItem(OrderItem item) => _orderItems.Add(item);
+
+  internal class Factory
+  {
+    public static Order Create(
+      Guid userId,
+      Address shippingAddress,
+      Address billingAddress,
+      IEnumerable<OrderItem> items)
+    {
+      var order = new Order
+      {
+        UserId = userId,
+        ShippingAddress = shippingAddress,
+        BillingAddress = billingAddress
+      };
+      foreach (var item in items)
+      {
+        order.AddOrderItem(item);
+      }
+      return order;
+    }
+  }
 }

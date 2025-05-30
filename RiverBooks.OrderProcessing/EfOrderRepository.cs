@@ -12,7 +12,9 @@ internal class EfOrderRepository : IOrderRepository
 
   public async Task AddAsync(Order order) => await _context.Orders.AddAsync(order);
 
-  public async Task<List<Order>> ListAsync() => await _context.Orders.ToListAsync();
+  public async Task<List<Order>> ListAsync() => await _context.Orders
+    .Include(o => o.OrderItems)
+    .ToListAsync();
 
   public async Task SaveChangesAsync() => await _context.SaveChangesAsync();
 }
