@@ -10,6 +10,9 @@ public class ApplicationUser : IdentityUser
   private readonly List<CartItem> _cartItems = [];
   public IReadOnlyCollection<CartItem> CartItems => _cartItems.AsReadOnly();
 
+  private readonly List<UserStreetAddress> _addresses = [];
+  public IReadOnlyCollection<UserStreetAddress> Addresses => _addresses.AsReadOnly();
+
   public void AddItemToCart(CartItem item)
   {
     Guard.Against.Null(item, nameof(item));
@@ -26,39 +29,24 @@ public class ApplicationUser : IdentityUser
     _cartItems.Add(item);
   }
 
+  internal UserStreetAddress AddAddress(Address address)
+  {
+    Guard.Against.Null(address);
+
+    var existingAddress = _addresses.SingleOrDefault(a => a.StreetAddress == address);
+    if (existingAddress != null)
+    {
+      return existingAddress;
+    }
+
+    var newAddress = new UserStreetAddress(Id, address);
+    _addresses.Add(newAddress);
+
+    return newAddress;
+  }
+
   internal void ClearCart()
   {
     _cartItems.Clear();
   }
-}
-
-public class CartItem
-{
-  public CartItem(Guid bookId, string description, decimal unitPrice, int quantity)
-  {
-    BookId = Guard.Against.Default(bookId);
-    Description = Guard.Against.NullOrEmpty(description);
-    UnitPrice = Guard.Against.Negative(unitPrice);
-    Quantity = Guard.Against.Negative(quantity);
-  }
-
-  public CartItem()
-  {
-    // EF
-  }
-
-  public Guid Id { get; private set; } = Guid.NewGuid();
-  public Guid BookId { get; private set; }
-  public string Description { get; private set; } = string.Empty;
-  public decimal UnitPrice { get; private set; }
-  public int Quantity { get; private set; }
-
-  internal void UpdateQuantity(int newQuantity) => 
-    Quantity = Guard.Against.Negative(newQuantity);
-
-  internal void UpdateDescription(string description) => 
-    Description = Guard.Against.NullOrEmpty(description);
-
-  internal void UpdatePrice(decimal unitPrice) => 
-    UnitPrice = Guard.Against.Negative(unitPrice);
 }

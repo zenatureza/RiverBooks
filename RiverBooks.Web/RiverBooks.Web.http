@@ -52,7 +52,7 @@ Accept: application/json
 
 ###
 
-@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNzQ4NjAxODYzLCJleHAiOjE3NDg2MDU0NjMsIm5iZiI6MTc0ODYwMTg2M30.Wt0vIZKcYAhsuJKmpfCNF5eRDKZCDUCePFW4UU9g5Tg
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNzQ4NzA1ODMwLCJleHAiOjE3NDg3MDk0MzAsIm5iZiI6MTc0ODcwNTgzMH0.Kv6xrY7yFBh-tzDKX-moUi6MTg236We-enSyFH3pJXw
 
 ### Add item to cart
 POST {{RiverBooks.Web_HostAddress}}/cart
@@ -80,6 +80,26 @@ Accept: application/json
 Authorization: Bearer {{token}}
 Content-Type: application/json
 {
-  "shippingAddressId": "5bf6c1ac-97ea-4c31-8920-f8849822c340",
-  "billingAddressId": "5bf6c1ac-97ea-4c31-8920-f8849822c340"
+  "shippingAddressId": "21e87edb-6141-43ca-bc6d-d8130ba3d34a",
+  "billingAddressId": "21e87edb-6141-43ca-bc6d-d8130ba3d34a"
+}
+
+### List Addresses
+GET {{RiverBooks.Web_HostAddress}}/users/addresses
+Accept: application/json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+### Add Address to User
+POST {{RiverBooks.Web_HostAddress}}/users/addresses
+Accept: application/json
+Authorization: Bearer {{token}}
+Content-Type: application/json
+{
+  "street1": "Casino Legal",
+  "street2": "Number 222",
+  "city": "Santiago",
+  "state": "RS",
+  "postalCode": "123456789",
+  "country": "BR"
 }

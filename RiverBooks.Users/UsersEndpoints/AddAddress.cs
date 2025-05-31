@@ -1,0 +1,42 @@
+﻿using System.Security.Claims;
+using Ardalis.Result;
+using FastEndpoints;
+using MediatR;
+using RiverBooks.Users.UseCases.User;
+
+namespace RiverBooks.Users.UsersEndpoints;
+
+internal sealed class AddAddress(IMediator mediator) : Endpoint<AddAddressRequest>
+{
+  private readonly IMediator _mediator = mediator;
+
+  public override void Configure()
+  {
+    Post("/users/addresses");
+    Claims("EmailAddress");
+  }
+
+  public override async Task HandleAsync(AddAddressRequest req, CancellationToken ct)
+  {
+    var emailAddress = User.FindFirstValue("EmailAddress");
+
+    var command = new AddAddressToUserCommand(
+      emailAddress!,
+      req.Street1,
+      req.Street2,
+      req.City,
+      req.State,
+      req.PostalCode,
+      req.Country);
+
+    var result = await _mediator.Send(command, ct);
+    if (result.Status == ResultStatus.Unauthorized)
+    {
+      await SendUnauthorizedAsync(ct);
+    }
+    else
+    {
+      await SendOkAsync(ct);
+    }
+  }
+}
