@@ -1,4 +1,4 @@
-﻿namespace RiverBooks.OrderProcessing;
+﻿namespace RiverBooks.OrderProcessing.Infrastructure.Data;
 
 public static class Constants
 {
