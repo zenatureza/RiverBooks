@@ -1,9 +1,10 @@
 ﻿using System.Text.Json.Serialization;
 using Ardalis.Result;
 
-namespace RiverBooks.OrderProcessing.Integrations;
+namespace RiverBooks.OrderProcessing;
 
 internal interface IOrderAddressCache
 {
   Task<Result<OrderAddress>> GetByIdAsync(Guid addressId);
+  Task<Result> StoreAsync(OrderAddress orderAddress);
 }

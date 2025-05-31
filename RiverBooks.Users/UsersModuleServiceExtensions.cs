@@ -22,6 +22,10 @@ public static class UsersModuleServiceExtensions
       .AddEntityFrameworkStores<UsersDbContext>();
 
     services.AddScoped<IApplicationUserRepository, EfApplicationUserRepository>();
+    services.AddScoped<IReadOnlyUserStreetAddressRepository, EfUserStreetAddressRepository>();
+
+    // Add MediatR Domain Event Dispatcher
+    services.AddScoped<IDomainEventDispatcher, MediatRDomainEventDispatcher>();
 
     mediatRAssemblies.Add(typeof(UsersModuleServiceExtensions).Assembly);
 

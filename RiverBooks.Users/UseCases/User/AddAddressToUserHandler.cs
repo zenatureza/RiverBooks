@@ -29,7 +29,10 @@ internal class AddAddressToUserHandler(
     var userAddress = user.AddAddress(addressToAdd);
     await _userRepository.SaveChangesAsync();
 
-    _logger.LogInformation("[UseCase] Added address {address} to user {email} (Total: {addressCount})", addressToAdd, request.Email, user.Addresses.Count);
+    _logger.LogInformation("[UseCase] Added address {address} to user {email} (Total: {total})",
+      userAddress.StreetAddress,
+      request.Email,
+      user.Addresses.Count);
 
     return Result.Success();
   }

@@ -52,7 +52,7 @@ Accept: application/json
 
 ###
 
-@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNzQ4NzE0NjczLCJleHAiOjE3NDg3MTgyNzMsIm5iZiI6MTc0ODcxNDY3M30.6oMz5XcBvJbORPi9RfCRRUTzKzgRCM13R4Z9ELm7rQM
+@token=eyJhbGciOiJodHRwOi8vd3d3LnczLm9yZy8yMDAxLzA0L3htbGRzaWctbW9yZSNobWFjLXNoYTI1NiIsInR5cCI6IkpXVCJ9.eyJFbWFpbEFkZHJlc3MiOiJ0ZXN0QHRlc3QuY29tIiwiaWF0IjoxNzQ4NzI5NTg1LCJleHAiOjE3NDg3MzMxODUsIm5iZiI6MTc0ODcyOTU4NX0.VVEql0ISBXv_V3-PWMLwUb4_H9o8Oi_WOXu5nHHNwXc
 
 ### Add item to cart
 POST {{RiverBooks.Web_HostAddress}}/cart
@@ -61,7 +61,7 @@ Authorization: Bearer {{token}}
 Content-Type: application/json
 {
   "bookId": "5bf6c1ac-97ea-4c31-8920-f8849822c340",
-  "quantity": 10
+  "quantity": 2
 }
 
 ### 
@@ -80,8 +80,8 @@ Accept: application/json
 Authorization: Bearer {{token}}
 Content-Type: application/json
 {
-  "shippingAddressId": "21e87edb-6141-43ca-bc6d-d8130ba3d34a",
-  "billingAddressId": "21e87edb-6141-43ca-bc6d-d8130ba3d34a"
+  "shippingAddressId": "a27cfbc8-3195-4fba-abb4-f344764f9e5f",
+  "billingAddressId": "a27cfbc8-3195-4fba-abb4-f344764f9e5f"
 }
 
 ### List Addresses
@@ -96,10 +96,19 @@ Accept: application/json
 Authorization: Bearer {{token}}
 Content-Type: application/json
 {
-  "street1": "Casino Legal",
-  "street2": "Number 222",
+  "street1": "jUUJ Legal",
+  "street2": "Number 444",
   "city": "Santiago",
   "state": "RS",
-  "postalCode": "123456789",
+  "postalCode": "123456712",
   "country": "BR"
+}
+
+### FLUSH CACHE
+
+POST {{RiverBooks.Web_HostAddress}}/flushcache
+Accept: application/json
+Content-Type: application/json
+
+{
 }
