@@ -10,3 +10,8 @@
 ```sh
 dotnet ef database update -c UsersDbContext
 ```
+
+### Running reids:
+```sh
+docker run --name my-redis -p 6379:6379 -d redis
+```

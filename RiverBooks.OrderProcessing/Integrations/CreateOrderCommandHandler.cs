@@ -7,10 +7,12 @@ namespace RiverBooks.OrderProcessing.Integrations;
 
 internal class CreateOrderCommandHandler(
   IOrderRepository orderRepository,
-  ILogger<CreateOrderCommandHandler> logger) : IRequestHandler<CreateOrderCommand, Result<OrderDetailsResponse>>
+  ILogger<CreateOrderCommandHandler> logger,
+  IOrderAddressCache addressCache) : IRequestHandler<CreateOrderCommand, Result<OrderDetailsResponse>>
 {
   private readonly IOrderRepository _orderRepository = orderRepository;
   private readonly ILogger<CreateOrderCommandHandler> _logger = logger;
+  private readonly IOrderAddressCache _addressCache = addressCache;
 
   public async Task<Result<OrderDetailsResponse>> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
   {
@@ -19,15 +21,14 @@ internal class CreateOrderCommandHandler(
       oi.Quantity,
       oi.UnitPrice,
       oi.Description));
-
-    // TODO: find real addresses by IDs
-    var shippingAddress = new Address("Coronel Blabla", "", "Santiago", "RS", "12345-678", "Brazil");
-    var billingAddress = new Address("Coronel Blabla", "", "Santiago", "RS", "12345-678", "Brazil");
+    
+    var shippingAddress = await _addressCache.GetByIdAsync(request.ShippingAddressId);
+    var billingAddress = await _addressCache.GetByIdAsync(request.BillingAddressId);
 
     var newOrder = Order.Factory.Create(
       request.UserId,
-      shippingAddress,
-      billingAddress,
+      shippingAddress.Value.Address,
+      billingAddress.Value.Address,
       items);
 
     await _orderRepository.AddAsync(newOrder);
