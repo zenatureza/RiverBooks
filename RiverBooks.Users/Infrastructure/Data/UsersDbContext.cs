@@ -1,8 +1,11 @@
 ﻿using System.Reflection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using RiverBooks.SharedKernel;
+using RiverBooks.Users.Domain;
+using RiverBooks.Users.Interfaces;
 
-namespace RiverBooks.Users.Data;
+namespace RiverBooks.Users.Infrastructure.Data;
 
 public class UsersDbContext : IdentityDbContext<ApplicationUser>
 {
@@ -37,7 +40,7 @@ public class UsersDbContext : IdentityDbContext<ApplicationUser>
   /// <returns></returns>
   public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
   {
-    int result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+    var result = await base.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
 
     // ignore events if no dispatcher provided
     if (_dispatcher == null) return result;

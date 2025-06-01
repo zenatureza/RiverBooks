@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace RiverBooks.Users;
+namespace RiverBooks.SharedKernel;
 
 public abstract class DomainEventBase : INotification
 {

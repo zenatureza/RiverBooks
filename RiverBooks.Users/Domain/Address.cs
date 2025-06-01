@@ -1,4 +1,4 @@
-﻿namespace RiverBooks.Users;
+﻿namespace RiverBooks.Users.Domain;
 
 public record Address(
   string Street1,
