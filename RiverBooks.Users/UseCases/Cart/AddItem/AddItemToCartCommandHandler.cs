@@ -6,7 +6,9 @@ using RiverBooks.Users.Interfaces;
 
 namespace RiverBooks.Users.UseCases.Cart.AddItem;
 
-public class AddItemToCartCommandHandler(IApplicationUserRepository userRepository, IMediator mediator) : 
+public class AddItemToCartCommandHandler(
+  IApplicationUserRepository userRepository, 
+  IMediator mediator) : 
   IRequestHandler<AddItemToCartCommand, Result>
 {
   public async Task<Result> Handle(AddItemToCartCommand request, CancellationToken cancellationToken)
