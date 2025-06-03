@@ -6,6 +6,7 @@ using RiverBooks.Books;
 using RiverBooks.OrderProcessing;
 using RiverBooks.SharedKernel;
 using RiverBooks.Users;
+using RiverBooks.EmailSending;
 using RiverBooks.Users.UseCases.Cart.AddItem;
 using Serilog;
 
@@ -30,6 +31,7 @@ List<Assembly> mediatRAssemblies = [typeof(Program).Assembly];
 builder.Services.AddBookModuleServices(builder.Configuration, logger, mediatRAssemblies);
 builder.Services.AddUsersModuleServices(builder.Configuration, logger, mediatRAssemblies);
 builder.Services.AddOrderProcessingModuleServices(builder.Configuration, logger, mediatRAssemblies);
+builder.Services.AddEmailSendingModuleServices(builder.Configuration, logger, mediatRAssemblies);
 
 builder.Services.AddMediatR(cfg =>
   cfg.RegisterServicesFromAssemblies([.. mediatRAssemblies]));
