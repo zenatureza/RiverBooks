@@ -24,8 +24,8 @@ public static class EmailSendingModuleServicesExtensions
     //services.AddTransient<ISendEmailsFromOutboxService,
     //  DefaultSendEmailsFromOutboxService>();
 
-    //// if using MediatR in this module, add any assemblies that contain handlers to the list
-    //mediatRAssemblies.Add(typeof(EmailSendingModuleServicesExtensions).Assembly);
+    // if using MediatR in this module, add any assemblies that contain handlers to the list
+    mediatRAssemblies.Add(typeof(EmailSendingModuleServicesExtensions).Assembly);
 
     //// Add BackgroundWorker
     //services.AddHostedService<EmailSendingBackgroundService>();
