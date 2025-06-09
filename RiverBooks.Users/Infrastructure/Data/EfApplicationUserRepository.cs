@@ -12,6 +12,12 @@ internal class EfApplicationUserRepository : IApplicationUserRepository
     _context = context;
   }
 
+  public Task<ApplicationUser> GetUserByIdAsync(Guid userId)
+  {
+    return _context.ApplicationUsers
+      .SingleAsync(user => user.Id == userId.ToString());
+  }
+
   public async Task<ApplicationUser> GetUserWithAddressesByEmailAsync(string email)
   {
     return await _context.Users
