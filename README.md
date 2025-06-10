@@ -11,12 +11,17 @@
 dotnet ef database update -c UsersDbContext
 ```
 
-### Running reids:
+### Running redis:
 ```sh
 docker run --name my-redis -p 6379:6379 -d redis
 ```
 
 ### Running papercut
 ```sh
-docker run --name=papercut -p 25:25 -p 37408:37408 jijiechen/papercut:latest -d
+docker run --name=papercut -p 25:25 -p 37408:37408 -d jijiechen/papercut:latest
+```
+
+### Running mongodb
+```sh
+docker run --name=mongodb -d -p 27017:27017 mongo
 ```
