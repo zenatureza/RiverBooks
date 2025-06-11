@@ -1,8 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using Serilog;
-//using RiverBooks.Reporting.ReportEndpoints;
-//using RiverBooks.Reporting.Integrations;
+using RiverBooks.Reporting.Integrations;
 
 namespace RiverBooks.Reporting;
 
@@ -20,8 +19,8 @@ public static class ReportingModuleServicesExtensions
 
     // configure module services
     services.AddScoped<ITopSellingBooksReportService, TopSellingBooksReportService>();
-    //services.AddScoped<ISalesReportService, DefaultSalesReportService>();
-    //services.AddScoped<OrderIngestionService>();
+    services.AddScoped<ISalesReportService, DefaultSalesReportService>();
+    services.AddScoped<OrderIngestionService>();
 
     // if using MediatR in this module, add any assemblies that contain handlers to the list
     mediatRAssemblies.Add(typeof(ReportingModuleServicesExtensions).Assembly);

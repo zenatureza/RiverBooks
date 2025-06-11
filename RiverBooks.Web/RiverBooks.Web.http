@@ -129,3 +129,10 @@ GET {{RiverBooks.Web_HostAddress}}/topsales?month=2&year=2024
 Accept: application/json
 
 ###
+
+# TOP SALES 2 - EVENT INGESTION CUSTOM DB
+
+GET {{RiverBooks.Web_HostAddress}}/topsales2?month=6&year=2025
+Accept: application/json
+
+###
