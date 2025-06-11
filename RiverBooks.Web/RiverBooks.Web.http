@@ -120,3 +120,12 @@ Content-Type: application/json
 GET {{RiverBooks.Web_HostAddress}}/emails
 Accept: application/json
 Authorization: Bearer {{token}}
+
+###
+
+# TOP SALES 1 - REACH IN REPORTING
+
+GET {{RiverBooks.Web_HostAddress}}/topsales?month=2&year=2024
+Accept: application/json
+
+###
